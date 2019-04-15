@@ -17,19 +17,19 @@ use AppBundle\Repository\UserRepository;
 class SellerApiController extends Controller
 {
 
-    /**
-     * @Route("/seller/update", methods="POST")
-     */
-    public function sellerUpdateFunction(Request $request){
-        $data = json_decode($request->getContent());
-        echo data;
-        die;
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository()->find();
+    // /**
+    //  * @Route("/seller/update", methods="POST")
+    //  */
+    // public function sellerUpdateFunction(Request $request){
+    //     $data = json_decode($request->getContent());
+    //     echo data;
+    //     die;
+    //     $em = $this->getDoctrine()->getManager();
+    //     $user = $em->getRepository()->find();
 
-        $em->flush();
+    //     $em->flush();
 
-    }
+    // }
 
 
 
