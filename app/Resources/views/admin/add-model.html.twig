@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{ include('admin/nav.twig') }}
+<a href="/admin/view/model">View model</a>
+ {{ form_start(form) }}
+ {{ form_widget(form) }}
+ {{ form_end(form) }}
+
+
+{% endblock %}

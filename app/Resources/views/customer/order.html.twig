@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<pre>
+    {{ dump(sellerProduct) }}
+</pre>
+    <pre>
+        {{ dump(product) }}
+    </pre>
+  
+
+    {# {{product.brand.name}} #}
+    {# {{product.model.name}} #}
+<img src="{{ asset('uploads/photo/' ~ product.photo) }}" height="200"/>
+<br/>
+brand: {{product.brand.name}}<br/>
+type: {{product.brand.subCategory.name}}<br/>
+name: {{product.name}}<br/>
+description: {{product.description}}<br/>
+price: {{product.price}}<br/>
+
+<a href='/customer/buy/{{product.id}}'> buy </a> 
+{% endblock %}

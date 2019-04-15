@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{ include('admin/nav.twig') }}
+<pre>
+    {{ dump(specifications) }} 
+</pre>
+
+<table>
+
+    <tr>
+        <td> S.no. </td>
+        <td> ram </td>
+        <td> storage </td>
+        <td> weight </td>
+        <td> dimension </td>
+        <td> battery </td>
+        <td> color </td>
+        <td> action </td>
+    </tr>
+    {% set i = 0 %}
+    {% for specification in specifications %}
+    {% set i = i+1 %}
+        <tr>
+            <td> {{ i }} </td>
+            <td> {{ specification.ram }} </td>
+            <td> {{ specification.storage }} </td>
+            <td> {{ specification.weight }} </td>
+            <td> {{ specification.battery }} </td>
+            <td> {{ specification.dimension }} </td>
+            <td> {{ specification.color }} </td>
+            {# <td> {{ specification.model }} </td> #}
+            <td> <a href="/admin/edit/{{ specification.id }}/specification">Edit</a> </td>
+            
+        </tr>
+    {% endfor %}
+</table>
+
+
+{% endblock %}

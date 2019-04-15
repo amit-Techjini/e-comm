@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{ include('admin/nav.twig') }}
+   
+    
+    hi seller dashboard
+
+
+<pre>
+    {{ dump(customers) }}
+</pre>
+<h3>All Customers Details</h3>
+<table>
+    <tr>
+        <td>S.no</td>
+        <td>Name</td>
+        <td>email</td>
+    </tr>
+    {% for customer in customers %}
+            <tr>
+                <td>  view  </td>
+                <td> {{ customer.name }} </td>
+                <td> {{ customer.email }} </td>
+                <td>  <a href="/admin/view/{{ customer.id }}"> view </a> </td>
+            </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock body %}

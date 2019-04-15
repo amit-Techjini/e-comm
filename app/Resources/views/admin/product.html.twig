@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{ include('admin/nav.twig') }}
+   
+<ul>
+    <li><a href="/admin/add-view/category">Add/view Category</a></li>
+    <li><a href="/admin/add-view/sub-category">Add/view Sub-Category</a></li>
+    <li><a href="/admin/add-view/brand">Add/view brand</a></li>
+    <li><a href="/admin/add/product">Add/view product</a></li>
+    <li><a href="/admin/add/model">Add/view model</a></li>
+    <li><a href="/admin/add/specification">Add/view specification</a></li>
+
+<ul>
+{% endblock body %}

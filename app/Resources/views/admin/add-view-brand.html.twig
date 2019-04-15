@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+{% block body %}
+{{ include('admin/nav.twig') }}
+<pre>
+    {{ dump(brands) }}
+</pre>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+       $(document).ready(function() {
+        var $brand_category = $('#brand_category');
+        var $token = $('#brand_token');
+        $brand_category.change(function(){
+            var $form = $(this).closest('form');
+            var data = {}
+            data[$token.attr('name')] = $token.val();
+            data[$brand_category.attr('name')] = $brand_category.val();
+
+            $.post($form.attr('action'),data).then(function(res){
+                   $("#brand_subCategory").replaceWith(
+                       $(res).find('#brand_subCategory')
+                   ) 
+            });
+        })
+       })
+    </script>
+
+{% endblock %}
+

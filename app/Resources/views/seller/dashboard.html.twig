@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{ include('seller/nav.twig') }}
+   
+    
+    hi seller dashboard
+
+{# 
+<pre>
+    {{ dump(app.user) }}
+</pre>
+
+     <pre>
+        {{ dump(models) }}
+    </pre>  #}
+
+    <table>
+        <tr>
+            <td> S.no </td>
+            <td> model </td>
+            <td> product</td>
+        </tr>
+        {% set i = 0 %}
+        {% for model in models %}
+            {% set i  = i+1 %}
+            <tr>
+                <td> {{i}} </td>
+                <td> {{model.name}} </td>
+                <td> {{model.product.name}} </td>
+                <td> <a href="/seller/add/{{model.id}}/model">Add</a>  </td>
+                <td> <a>Delete</a> </td>
+            </tr>
+        {% endfor %}
+    </tabl>
+{% endblock %}

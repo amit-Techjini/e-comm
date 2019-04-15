@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{ include('admin/nav.twig') }}
+     <pre>
+        {{ dump(models) }}
+    </pre> 
+
+    <table>
+        <tr>
+            <td> S.no </td>
+            <td> model </td>
+            <td> product</td>
+        </tr>
+        {% set i = 0 %}
+        {% for model in models %}
+            {% set i  = i+1 %}
+            <tr>
+                <td> {{i}} </td>
+                <td> {{model.name}} </td>
+                <td> {{model.product.name}} </td>
+                <td> <a href="/admin/edit/{{model.id}}/model">Edit</a>  </td>
+                <td> <a>Delete</a> </td>
+            </tr>
+        {% endfor %}
+    </tabl>
+{% endblock %}

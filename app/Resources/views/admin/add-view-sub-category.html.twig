@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{ include('admin/nav.twig') }}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+
+
+<pre>
+    {{ dump(subCategories) }}
+</pre>
+<br/>
+
+{% if subCategories %}
+Sub-Category Details
+<table>
+    <tr>
+        <td> S.no. </td>
+        <td> sub category. </td>
+        <td> category </td>
+    </tr>
+{% set i = 0 %}
+    {% for subCategory in subCategories %}
+    {% set i = i+1 %}
+        <tr>
+            <td> {{ i }} </td>
+            <td>{{ subCategory.name }}</td>
+            <td>{{ subCategory.category.name }}</td>
+            <td><a href="/admin/edit/sub-category/{{subCategory.id}}"> Edit </a></td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

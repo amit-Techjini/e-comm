@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+ {{ include('seller/nav.twig') }}
+
+    {# <pre>
+        {{ dump(models) }}
+    </pre> #}
+<h2>Seller products details </h2>
+<table>
+    <tr>
+        <td> S.no. </td>
+        <td> model </td>
+        <td> quantity </td>
+        <td> discount </td>
+    </tr>
+    {% set i = 0 %}
+    {% for sellerProduct in sellerProducts %}
+        {% set i = i+1 %}
+        <tr>    
+            <td>{{i}}</td>
+            <td> {{models[i-1]}}</td>
+            <td> {{sellerProduct.quantity}}</td>
+            <td> {{sellerProduct.discount}}</td>
+             
+        </tr>
+    {% endfor %}
+
+</table>
+{% endblock %}

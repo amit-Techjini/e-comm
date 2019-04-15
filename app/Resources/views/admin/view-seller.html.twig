@@ -1,0 +1,143 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{ include('admin/nav.twig') }}
+
+   hi seller dashboard
+                          
+<div class="row">
+    <div class="col s12 m6">
+    <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+        <span class="card-title">{{ user.name }}</span>
+        <p>
+            {{ user.email }}<br/>
+            {# {{ seller.state }}<br/> #}
+            {# {{ seller.pincode }} #}
+            {{ user.phoneNo }}
+        </p>
+        </div>
+        <div class="card-action">
+            <a href="/admin/edit/{{user.id}}">edit</a>
+            <a href="#">delete</a>
+        </div>
+    </div>
+    </div>
+</div>
+    {% if user.userType == constant('AppBundle\\Repository\\UserRepository::SELLER') %}
+          {# {{ constant('AppBundle\\Repository\\UserRepository::SELLER') }}
+           #}
+
+           {% include "admin/seller-product.html.twig" %}
+          {# {{ render(url('admin_seller')) }} #}
+
+        {% else %}
+          {{ constant('AppBundle\\Repository\\UserRepository::CUSTOMER') }}   
+              {# code to see the customer's cart and order details to be render #}
+    {% endif %}
+    
+                 
+                     
+<pre>
+    {{ dump(data) }}
+</pre>
+<!-- for active address card -->
+{% if activeAddresses %}
+
+<div class='row'>
+    <div class="col s12">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Active Address</span>
+                    <a href="/admin/add/address/{{user.id}}"> Add Address </a>
+                <table>
+                    <tr>
+                        <td> address line1 </td>
+                        <td> address line2 </td>
+                        <td> state </td>
+                        <td> pincode </td>
+                    </tr>
+                    {% for address in activeAddresses %}
+                        <tr>
+                            <td> {{ address.addressLine1 }} </td>
+                            <td> {{ address.addressLine2 }} </td>
+                            <td> {{ address.state }} </td>
+                            <td> {{ address.pincode }} </td>
+                            <td>
+                                <a href="/admin/edit/{{user.id}}/address/{{ address.id }}">Edit</a><br/>
+                                <a href="/admin/deactive/{{user.id}}/address/{{ address.id }}">Deactivate</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+    <a href="/admin/add/address/{{user.id}}"> Add Address </a>
+{% endif %}
+<!-- for deactive address card -->
+{% if deactiveAddresses %}
+
+<div class='row'>
+    <div class="col s12">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Deactive Address</span>
+                <table>
+                    <tr>
+                        <td> address line1 </td>
+                        <td> address line2 </td>
+                        <td> state </td>
+                        <td> pincode </td>
+                    </tr>
+                    {% for address in deactiveAddresses %}
+                        <tr>
+                            <td> {{ address.addressLine1 }} </td>
+                            <td> {{ address.addressLine2 }} </td>
+                            <td> {{ address.state }} </td>
+                            <td> {{ address.pincode }} </td>
+                            <td>
+                                <a href="/admin/active/{{user.id}}/address/{{ address.id }}">Activate</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!--<div class="row">
+    <div class="col s12 m8">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Address</span>
+                <table>
+                <tr>
+                        <td>address line1</td>
+                        <td>address line2</td>
+                        <td>state</td>
+                        <td>pincode</td>
+                    </tr>
+                {# {% for address in addresses %} #}
+                    <tr>
+                        {# <td>{{ address.addressLine1 }}</td> #}
+                        {# <td>{{ address.addressLine2 }}</td> #}
+                        {# <td>{{ address.state }}</td> #}
+                        {# <td>{{ address.pincode }}</td> #}
+                        <td class="card-action">
+                            <a href="#">edit</a>
+                            <a href="#">delete</a>
+                        </td>
+                    </tr>
+                {# {% endfor %} #}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+{% endblock body %}

@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{ include('admin/nav.twig') }}
+   
+    
+  {{form_start(form)}}
+  {{form_widget(form)}}
+  {{form_end(form)}}
+
+
+<pre>
+  {{ dump(categories) }}
+</pre>
+<div class="row">
+  <div class="col s12">
+      <table>
+        <tr>
+          <td>S.No</td>
+          <td>category</td>
+          <td>Actions</td>
+        </tr>
+        {% set i = 0 %}
+        {% for category in categories %}
+        {% set i = i+1 %}
+          <tr>  
+            <td> {{ i }} </td>
+            <td> {{ category.name }} </td>
+            <td> <a href='/admin/edit/category/{{ category.id }}'> Edit </a></td>
+          </tr>
+        {% endfor %}
+      </table>
+  </div>
+</div>
+
+{% endblock body %}

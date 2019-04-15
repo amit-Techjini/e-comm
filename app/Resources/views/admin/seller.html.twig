@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{ include('admin/nav.twig') }}
+
+<pre>
+    {{ dump(sellers) }}
+</pre>
+<h3>All Seller Details</h3>
+<table>
+    <tr>
+        <td>S.no</td>
+        <td>Name</td>
+        <td>email</td>
+    </tr>
+    {% for seller in sellers %}
+            <tr>
+                <td>  view  </td>
+                <td> {{ seller.name }} </td>
+                <td> {{ seller.email }} </td>
+                <td>  <a href="/admin/view/{{ seller.id }}"> view </a> </td>
+            </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock body %}
