@@ -21,6 +21,8 @@ use AppBundle\Form\AddProductType;
 use AppBundle\Form\SellerProductType;
 
 use AppBundle\Repository\UserRepository;
+use AppBundle\Repository\AddressRepository;
+
 
 class SellerController extends Controller
 {
@@ -117,7 +119,7 @@ class SellerController extends Controller
         $id = $this->getUser()->getId();
 
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-        $userAddress = $this->getDoctrine()->getRepository(Address::class)->findAll($id);
+        $userAddress = $this->getDoctrine()->getRepository(Address::class)->findActiveAddresses($this->getUser());
 
         return $this->render('seller/profile.html.twig',[
             "user" => $user,
@@ -139,12 +141,13 @@ class SellerController extends Controller
         $form->handleRequest($request);
         if($form->isSubmitted()){
             //to get the current user id
-            $userId = $this->getUser()->getId();
+            $user = $this->getUser();
 
             $address = $form->getData();
             
-            $address->setUserId($userId);
-            $address->setStatus('active');
+            // $address->setUserId($userId);
+            $address->setUser($user); // user object is sent and due to manytoone relation only id will be there.
+            $address->setStatus(AddressRepository::ACTIVE);
             $em = $this->getDoctrine()->getManager();
             $em->persist($address);
             $em->flush($address);
@@ -176,11 +179,4 @@ class SellerController extends Controller
         ]);
 
     }
-    // /**
-    //  * @Route("/seller/logout", name="seller_logout")
-    //  */
-    // public function sellerLogoutAction(){
-
-    // }
-
 }

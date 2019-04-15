@@ -10,11 +10,15 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 use AppBundle\Entity\User;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\Address;
 use AppBundle\Entity\SellerProduct;
 
 
 use AppBundle\Form\UserRegisterType;
+use AppBundle\Form\AddressType;
+
 use AppBundle\Repository\UserRepository;
+use AppBundle\Repository\AddressRepository;
 
 
 class CustomerController extends Controller
@@ -69,5 +73,60 @@ class CustomerController extends Controller
             'product' => $product,
             'sellerProduct' => $sellerProduct,
         ]);
+    }
+        /**
+     * @Route("/customer/profile", name="customer_profile")
+     */
+    public function customerProfileAction(){
+       
+        $id = $this->getUser()->getId();
+
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $userAddress = $this->getDoctrine()->getRepository(Address::class)->findActiveAddresses($this->getUser());
+
+        return $this->render('customer/profile.html.twig',[
+            "user" => $this->getUser(),
+            "userAddress" => $userAddress
+        ]);
+    }
+    
+    /**
+     * @Route("/customer/add/address", name="customer_add_address")
+     */
+    public function customerAddAddressAction(Request $request){
+
+        // to store the address
+        $address = new Address(); 
+        
+        //form to store address
+        $form = $this->createForm(AddressType::class,$address); 
+
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            //to get the current user id
+            $user = $this->getUser();
+
+            $address = $form->getData();
+            
+            // $address->setUserId($userId);
+            $address->setUser($user); // user object is sent and due to manytoone relation only id will be there.
+            $address->setStatus(AddressRepository::ACTIVE);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($address);
+            $em->flush($address);
+
+            return $this->redirectToRoute('customer_profile');
+
+        }
+        return $this->render('customer/add-address.html.twig',[
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("customer/buy/{productId}", name="customer_buy")
+     */
+    public function customerBuyAction($productId) {
+        return;
     }
 }

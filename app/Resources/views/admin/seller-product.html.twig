@@ -1,14 +1,14 @@
 <table>
     <tr>
         <td>id  </td>
-        <td>  sellerId</td>
+        <td> sellerId</td>
         <td> data </td>
     </tr>
 
     {% for sellerProduct in data %}
            <tr>
-                <td> {{ sellerProduct.id }} </td>
-                <td> {{ sellerProduct.productId }} </td>
+                <td> {{ sellerProduct.sellerId }} </td>
+                <td> {{ sellerProduct.modelId }} </td>
                 <td> {{ sellerProduct.id }} </td>
            </tr> 
     {% endfor %}

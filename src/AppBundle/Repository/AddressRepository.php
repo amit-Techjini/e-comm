@@ -10,32 +10,33 @@ namespace AppBundle\Repository;
  */
 class AddressRepository extends \Doctrine\ORM\EntityRepository
 {
+ const ACTIVE = 1;
+ CONST DEACTIVE = 0;
 
-
-    //function to return active addresses
-    public function findActiveAddresses($userId){
+    //function to return active addresses FOR ADMIN 
+    public function findActiveAddresses($user){
         // echo $userId;
         // die;
         return $this->createQueryBuilder('a')
                
                     // ->setParameter('userType', self::SELLER)
-                    ->andWhere('a.userId = :userId')
+                    ->andWhere('a.user = :user')
                     ->andWhere('a.status = :status')
-                    ->setParameter('userId', $userId)
-                    ->setParameter('status', 'active')
+                    ->setParameter('user', $user)
+                    ->setParameter('status', self::ACTIVE)
                     ->getQuery()
                     ->getResult();
     }
      
     
-    //function to return deactive addresses
-    public function findDeactiveAddresses($userId){
+    //function to return deactive addresses FOR ADMIN
+    public function findDeactiveAddresses($user){
         return $this->createQueryBuilder('a')
-                    // ->andWhere('a.userId = :userId')
-                    // ->andwhere('a.status = :status')
-                    // ->setParameter('userId', $userId)
-                    // ->setParameter('status', 'deactive')
-                    ->leftJoin('a.address','as')
+                    ->andWhere('a.user = :user')
+                    ->andwhere('a.status = :status')
+                    ->setParameter('user', $user)
+                    ->setParameter('status', self::DEACTIVE)
+                    // ->leftJoin('a.address','as')
                     // ->setParameter('userType', self::SELLER)
                     ->getQuery()
                     ->getResult();
@@ -45,9 +46,20 @@ class AddressRepository extends \Doctrine\ORM\EntityRepository
 
         $dm = $this->getEntityManager();
         $address = self::find($addressId);
-        $address->setStatus('active');
+        $address->setStatus(self::ACTIVE);
         $dm->flush();
         return;
 
+    }
+
+    //to get the all address of the user..
+    public function findAllAddress($user){
+        return $this->createQueryBuilder('a')
+                    ->andWhere('a.user = :user')
+                    ->setParameter('user',$user)
+                    // ->leftJoin('a.user','user_id')
+                    // ->setParameter('user',$user)
+                    ->getQuery()
+                    ->getResult();
     }
 }

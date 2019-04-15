@@ -3,10 +3,11 @@
 </pre> #}
 
 {% extends "base.html.twig" %}
+ {{ include('customer/nav.twig') }}
 
 {% block body %}
 
- {{ include('seller/nav.twig') }}
+ {{ include('customer/nav.twig') }}
     <div>
         <p>Hi! {{ user.name }}</p>
     </div>
@@ -37,7 +38,7 @@
                         <div class="col s12">
                             <div class="card blue-grey darken-1">
                                 <div class="card-content white-text">
-                                    <span class="card-title">Address <small>&nbsp;&nbsp;<a href="{{ path('seller_add_address') }}"> Add Address </a></small> </span>
+                                    <span class="card-title">Address <small>&nbsp;&nbsp;<a href="{{ path('customer_add_address') }}"> Add Address </a></small> </span>
                                     
                                         <table>
                                             <tr>    
@@ -63,7 +64,7 @@
                         </div>
                     </div>
                     {% else %}
-                        no address <a href="{{ path('seller_add_address') }}"> Add Address </a>
+                        no address <a href="{{ path('customer_add_address') }}"> Add Address </a>
                     {% endif %}<br/>
                     
                 </td>

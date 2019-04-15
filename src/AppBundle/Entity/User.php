@@ -358,11 +358,16 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\SellerProduct", mappedBy="user")
      */
     private $sellerProduct;
+     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Cart", mappedBy="user")
+     */
+    private $cart;
 
     public function __construct()
     {
         $this->sellerProduct = new ArrayCollection();
         $this->address = new ArrayCollection();
+        $this->cart = new ArrayCollection();
     }
 
 
@@ -395,4 +400,18 @@ class User implements UserInterface, \Serializable
         return $this->address;
     }
 
+//getter and setter for cart
+    function setCart(?Cart $cart):self
+    {
+         $this->cart = $cart;
+         return $this;
+    }
+
+    /**
+     * @return ArrayCollection|Cart[]
+     */
+    public function getCart()
+    {
+        return $this->cart;
+    }
 }

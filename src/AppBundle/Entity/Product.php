@@ -82,7 +82,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=255)
+     * @ORM\Column(name="status", type="integer")
      */
     private $status;
 
@@ -210,7 +210,7 @@ class Product
     /**
      * Set status.
      *
-     * @param string $status
+     * @param int $status
      *
      * @return Product
      */
@@ -224,7 +224,7 @@ class Product
     /**
      * Get status.
      *
-     * @return string
+     * @return int
      */
     public function getStatus()
     {

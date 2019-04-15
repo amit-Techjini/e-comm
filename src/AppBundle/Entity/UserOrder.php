@@ -24,7 +24,7 @@ class UserOrder
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=255)
+     * @ORM\Column(name="status", type="integer")
      */
     private $status;
 
@@ -34,6 +34,26 @@ class UserOrder
      * @ORM\Column(name="quantity", type="string", length=255)
      */
     private $quantity;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cart", inversedBy="userOrder")
+     * @ORM\JoinColumn(name="cart_id", referencedColumnName="id")
+     */
+    private $cart;
+    /**
+     * @return mixed
+     */
+    public function getCart()
+    {
+        return $this->cart;
+    }
+    /**
+     * @param mixed $cart
+     */
+    public function setCart($cart)
+    {
+        $this->cart = $cart;
+    }
+     
 
     /**
      * @var int
@@ -63,6 +83,28 @@ class UserOrder
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Payment", mappedBy="userOrder")
+     */
+    private $payment;
+
+    public function __construct()
+    {
+        $this->payment = new ArrayCollection();
+    }
+    
+    function setPayment(?Payment $payment):self
+    {
+         $this->payment = $payment;
+         return $this;
+    }
+    /**
+     * @return ArrayCollection|Payment[]
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
 
     /**
      * Get id.
@@ -77,7 +119,7 @@ class UserOrder
     /**
      * Set status.
      *
-     * @param string $status
+     * @param int $status
      *
      * @return UserOrder
      */
@@ -91,7 +133,7 @@ class UserOrder
     /**
      * Get status.
      *
-     * @return string
+     * @return int
      */
     public function getStatus()
     {

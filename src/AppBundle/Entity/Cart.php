@@ -24,7 +24,7 @@ class Cart
     /**
      * @var string|null
      *
-     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     * @ORM\Column(name="status", type="integer")
      */
     private $status;
 
@@ -36,12 +36,48 @@ class Cart
     private $productId;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="user_id", type="integer")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserOrder", mappedBy="cart")
      */
-    private $userId;
+    private $userOrder;
 
+    public function __construct()
+    {
+        $this->userOrder = new ArrayCollection();
+    }
+
+    function setModel(?UserOrder $userOrder):self
+    {
+         $this->userOrder = $userOrder;
+         return $this;
+    }
+
+    /**
+     * @return ArrayCollection|UserOrder[]
+     */
+    public function getUserOrder()
+    {
+        return $this->userOrder;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="cart")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
     /**
      * @var \DateTime
      *
@@ -70,7 +106,7 @@ class Cart
     /**
      * Set status.
      *
-     * @param string|null $status
+     * @param int|null $status
      *
      * @return Cart
      */
@@ -84,7 +120,7 @@ class Cart
     /**
      * Get status.
      *
-     * @return string|null
+     * @return int|null
      */
     public function getStatus()
     {

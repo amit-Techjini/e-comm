@@ -37,7 +37,7 @@ class ProductType extends AbstractType
             ]) 
             ->add("brand",EntityType::class,[
                 "class" => Brand::class,
-                "placeholder" => 'select sub category',
+                "placeholder" => 'select brand category',
                 'choice_label' => 'name',
                
             ]) 

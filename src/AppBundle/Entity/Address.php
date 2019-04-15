@@ -53,7 +53,7 @@ class Address
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=255)
+     * @ORM\Column(name="integer", type="string")
      */
     private $status;
     
@@ -201,7 +201,7 @@ class Address
     /**
      * Set status.
      *
-     * @param string $status
+     * @param int $status
      *
      * @return Address
      */

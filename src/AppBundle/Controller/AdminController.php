@@ -125,8 +125,8 @@ class AdminController extends Controller
         if($user->getUserType() == UserRepository::CUSTOMER){
             $data = $this->getDoctrine()->getRepository(Cart::class)->findAll();
         }
-        $activeAddresses = $this->getDoctrine()->getRepository(Address::class)->findActiveAddresses($userId);
-        $deactiveAddresses = $this->getDoctrine()->getRepository(Address::class)->findDeactiveAddresses($userId);
+        $activeAddresses = $this->getDoctrine()->getRepository(Address::class)->findActiveAddresses($user);
+        $deactiveAddresses = $this->getDoctrine()->getRepository(Address::class)->findDeactiveAddresses($user);
    
         return $this->render("admin/view-seller.html.twig",[
             'user' => $user,

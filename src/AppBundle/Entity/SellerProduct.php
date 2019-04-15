@@ -22,12 +22,47 @@ class SellerProduct
      */
     private $id;
 
+ 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="seller_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="sellerProduct")
+     * @ORM\JoinColumn(name="seller_id", referencedColumnName="id")
      */
-    private $sellerId;
+    private $user;
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+ 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Model", inversedBy="sellerProduct")
+     * @ORM\JoinColumn(name="model_id", referencedColumnName="id")
+     */
+    private $model;
+    /**
+     * @return mixed
+     */
+    public function getModel()
+    {
+        return $this->user;
+    }
+    /**
+     * @param mixed $model
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+    }
+
 
     /**
      * @var int

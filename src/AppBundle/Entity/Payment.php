@@ -24,7 +24,7 @@ class Payment
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=255)
+     * @ORM\Column(name="status", type="integer")
      */
     private $status;
 
@@ -77,7 +77,7 @@ class Payment
     /**
      * Set status.
      *
-     * @param string $status
+     * @param int $status
      *
      * @return Payment
      */
@@ -111,6 +111,26 @@ class Payment
 
         return $this;
     }
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserOrder", inversedBy="payment")
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
+     */
+    private $userOrder;
+    /**
+     * @return mixed
+     */
+    public function getUserOrder()
+    {
+        return $this->userOrder;
+    }
+    /**
+     * @param mixed $userOrder
+     */
+    public function setUserOrder($userOrder)
+    {
+        $this->userOrder = $userOrder;
+    }
+
 
     /**
      * Get paymentMethod.

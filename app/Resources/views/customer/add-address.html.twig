@@ -1,0 +1,19 @@
+{# <pre>
+    {{ dump(user) }}
+</pre> #}
+
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+ {{ include('customer/nav.twig') }}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    <pre>
+        {{ dump(app.user) }}
+    </pre>
+{% endblock %}
+
